@@ -114,7 +114,8 @@ def process_record(record_path, config):
                 "final_igt": record["final_igt"],
                 "time": record["final_rta"],
                 "finished": False,
-                "seed": seed
+                "seed": seed,
+                "splits": record["timelines"]
             })
             with open(Path(os.path.expanduser("~/speedrunigt/100HC/all_runs.json")), "w") as f:
                 json.dump(all_runs, f, indent=4)
