@@ -28,7 +28,9 @@ This directory contains:
 
 ## 🧾 Configuration
 
-Create a config file in JSON format:
+There will be a config.json created after running the program the first time.
+The file is in the 100HC folder inside the SpeedrunIGT folder
+Userfolder/speedrungigt
 
 ```json
 {
