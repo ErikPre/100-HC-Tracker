@@ -2,19 +2,31 @@ import json
 import os
 from pathlib import Path
 
+
+
+def load_json_with_backslashes(file_path):
+    """
+    Load a JSON file that may contain backslashes in its content.
+    This function replaces backslashes with forward slashes before loading.
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+        content = content.replace('\\', '/')
+        return json.loads(content)
+
 config_path = Path(os.path.expanduser("~/speedrunigt/100HC/config.json"))
 if config_path.exists():
-    with open(config_path, 'r') as f:
-        try:
-            config = json.load(f)
-        except json.decoder.JSONDecodeError:
-            print("Config file is corrupted or has an syntax error. Please check the file.")
-            config = {
-                "version": 1,
-                "instance_path": None,
-                "streak_prefix": "Streak: ",
-                "average_igt_prefix": "Avg IGT: ",
-            }
+
+    try:
+        config = load_json_with_backslashes(config_path)
+    except json.decoder.JSONDecodeError:
+        print("Config file is corrupted or has an syntax error. Please check the file.")
+        config = {
+            "version": 1,
+            "instance_path": None,
+            "streak_prefix": "Streak: ",
+            "average_igt_prefix": "Avg IGT: ",
+        }
 
     if config["instance_path"] is not None:
         # check if nbt is installed if not install
@@ -227,9 +239,8 @@ if __name__ == "__main__":
     # load config
     config_path = Path(os.path.expanduser("~/speedrunigt/100HC/config.json"))
     if config_path.exists():
-        with open(config_path, 'r') as f:
-            config = json.load(f)
-            print("Loaded config:", config)
+        config = load_json_with_backslashes(config_path)
+        print("Loaded config:", config)
     else:
         print("Config file not found, using default settings.")
 
