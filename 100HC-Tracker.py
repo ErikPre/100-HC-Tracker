@@ -12,7 +12,8 @@ def load_json_with_backslashes(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
         content = content.replace('\\', '/')
-        return json.loads(content)
+        conf = json.loads(content)
+        conf["instance_path"] = conf["instance_path"].replace(".minecraft","")
 
 config_path = Path(os.path.expanduser("~/speedrunigt/100HC/config.json"))
 if config_path.exists():
