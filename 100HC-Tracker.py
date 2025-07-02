@@ -9,11 +9,12 @@ def load_json_with_backslashes(file_path):
     Load a JSON file that may contain backslashes in its content.
     This function replaces backslashes with forward slashes before loading.
     """
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r') as file:
         content = file.read()
         content = content.replace('\\', '/')
         conf = json.loads(content)
         conf["instance_path"] = conf["instance_path"].replace(".minecraft","")
+    return conf
 
 config_path = Path(os.path.expanduser("~/speedrunigt/100HC/config.json"))
 if config_path.exists():
